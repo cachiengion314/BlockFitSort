@@ -28,7 +28,7 @@
     "com.unity.recorder": "5.1.2",
     "com.unity.render-pipelines.universal": "17.2.0",
     "com.unity.services.levelplay": "8.10.1",
-    "com.unity.timeline": "1.8.8",
+    "com.unity.timeline": "1.8.9",
     "com.unity.ugui": "2.0.0",
     "com.unity.xr.legacyinputhelpers": "2.1.12",
     "net.mikinya.unity-excel-importer": "https://github.com/mikito/unity-excel-importer.git?path=Assets/ExcelImporter#v0.1.1/upm",
