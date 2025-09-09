@@ -57,6 +57,8 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -78,6 +80,7 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
@@ -230,6 +233,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -251,6 +256,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -280,30 +286,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   themeObj: {fileID: 11400000, guid: d081b41fc20d342d89fa72791fcfc66b, type: 2}
   bodyRenderer: {fileID: 4834209682759628819}
-  text: {fileID: 2425826024660542905}
-  groupPassengerData:
-    GridRangeX:
-      x: 0
-      y: 0
-    GridRangeY:
-      x: 0
-      y: 0
-    IsHidden: 0
-    Value: 0
-  concreteBarrierData:
-    Index: 0
-  tunnelData:
-    Index: 0
-    direction:
-      x: 0
-      y: 0
-    Values: 
-  initHoleData:
-    GridRangeX:
-      x: 0
-      y: 0
-    GridRangeY:
-      x: 0
-      y: 0
-    Value: 0
   type: 0

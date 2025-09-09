@@ -13,8 +13,6 @@ public partial class LevelSystem : MonoBehaviour
   LevelInformation _levelInformation;
   [SerializeField][Range(1, 30)] int levelSelected = 1;
   public bool IsSelectedLevel;
-  [SerializeField] GridWorld passengerGrid;
-  public GridWorld PassengerGrid => passengerGrid;
   bool isLoadedLevel = false;
 
   IEnumerator Start()
@@ -57,6 +55,8 @@ public partial class LevelSystem : MonoBehaviour
     BakingGrids(levelInformation);
     InitEntitiesDataBuffers(levelInformation);
     SpawnAndBakingEntityDatas(levelInformation);
+    InitEntitiesDataBuffersWoodColor(levelInformation);
+    SpawnAndBakingEntityDatasWoodColor(levelInformation);
     SetSizeCamera();
   }
 

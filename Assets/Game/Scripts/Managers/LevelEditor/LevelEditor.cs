@@ -7,9 +7,20 @@ using UnityEngine;
 public class LevelInformation
 {
   [ViewOnly] public int Index;
-  [ViewOnly] public float3 GridPosition;
-  [ViewOnly] public int2 GridSize;
-  [ViewOnly] public float2 GridScale = new float2(1, 1);
+  public TubeDataEditor[] TubeDatas;
+}
+
+[Serializable]
+public struct TubeDataEditor
+{
+  public int MaxBlock;
+  public BlockDataEditor[] Blocks;
+}
+
+[Serializable]
+public struct BlockDataEditor
+{
+  public int ColorValue;
 }
 
 public class LevelEditor : MonoBehaviour
@@ -70,12 +81,7 @@ public class LevelEditor : MonoBehaviour
 
     if (levelInfo == null) { print("This level is not existed!"); return; }
     levelInformation = levelInfo;
-    
-    var gridPos = levelInformation.GridPosition;
-    gridWord.transform.position = new float3(gridPos.x, gridPos.z, gridPos.y);
-    gridWord.GridSize = levelInformation.GridSize / 2;
-    gridWord.GridScale = levelInformation.GridScale * 2;
-    
+
     CreateGrid();
     print("Load level successfully");
   }

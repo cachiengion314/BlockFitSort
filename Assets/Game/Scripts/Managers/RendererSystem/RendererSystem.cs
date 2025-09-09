@@ -30,4 +30,12 @@ public class RendererSystem : MonoBehaviour
     if (index > theme.colorValues.Length - 1) return theme.colorValues[^1];
     return theme.colorValues[index];
   }
+
+  public Sprite GetSpriteByColorValue(int colorValue)
+  {
+    var theme = GetCurrentTheme();
+    var index = math.max(colorValue, 0);
+    if (index > theme.sprites.Length - 1) return theme.sprites[^1];
+    return theme.sprites[index];
+  }
 }

@@ -6,28 +6,22 @@ using UnityEngine;
 public partial class LevelSystem : MonoBehaviour
 {
   [SerializeField] Transform spawnedParent;
-  [SerializeField] Transform helicopterPref;
-  [SerializeField] Transform slotBusPref;
-  [SerializeField] Transform holeEfx;
+  [SerializeField] Transform tubePref;
+  [SerializeField] Transform blockPref;
 
-  Transform SpawnHoleEfx(float3 pos, Transform parent)
+  Transform SpawnTube(float3 pos)
   {
-    var obj = Instantiate(holeEfx, parent);
-    obj.position = pos;
+    var localPos = spawnedParent.InverseTransformPoint(pos);
+    var obj = Instantiate(tubePref, spawnedParent);
+    obj.localPosition = localPos;
     return obj;
   }
 
-  Transform SpawnSlotBusAt(float3 pos, Transform parent)
+  Transform SpawnBlock(float3 pos)
   {
-    var obj = Instantiate(slotBusPref, parent);
-    obj.position = pos;
-    return obj;
-  }
-
-  Transform SpawnHelicopter(float3 pos, Transform parent)
-  {
-    var obj = Instantiate(helicopterPref, parent);
-    obj.position = pos;
+    var localPos = spawnedParent.InverseTransformPoint(pos);
+    var obj = Instantiate(blockPref, spawnedParent);
+    obj.localPosition = localPos;
     return obj;
   }
 }
