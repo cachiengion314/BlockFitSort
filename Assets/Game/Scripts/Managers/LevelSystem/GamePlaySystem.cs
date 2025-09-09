@@ -55,6 +55,7 @@ public partial class LevelSystem
             var blockInstance = blockInstances[block.IndexRef];
             blockInstance.position = block.Position;
         }
+        // VisualzeMoveBlocks(tubeData);
 
         AvailableBlocks.Clear();
         AvailableTube.Index = -1;

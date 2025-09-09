@@ -3,6 +3,7 @@ using UnityEngine;
 public class BlockControl : MonoBehaviour, ISpriteRenderer
 {
     [SerializeField] SpriteRenderer spriteRenderer;
+
     public SpriteRenderer GetSpriteRenderer()
     {
         return spriteRenderer;

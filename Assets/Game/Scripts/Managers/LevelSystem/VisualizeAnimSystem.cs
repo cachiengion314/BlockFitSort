@@ -4,20 +4,39 @@ using Firebase.Analytics;
 using Unity.Mathematics;
 using UnityEngine;
 
-public struct AnimatedData
+public partial class LevelSystem 
 {
-  public Transform targetObj;
-  public Transform needMovingObj;
-  public int fromIndex;
-  public float3 fromPos;
-  public float3 targetPos;
-  public int targetIndex;
-  public Transform targetPosParent;
-  public float startDuration;
-  public float lengthDuration;
-}
+  void VisualzeMoveBlocks(TubeData tubeData)
+  {
+    var maxY = math.max(tubeData.TubePosition.y, AvailableTube.TubePosition.y);
+    var targetPos1 = AvailableTube.TubePosition;
+    targetPos1.y = maxY + 2.5f;
+    var targetPos2 = tubeData.TubePosition;
+    targetPos2.y = maxY + 2.5f;
 
-public partial class LevelSystem : MonoBehaviour
-{
-
+    Sequence seq = DOTween.Sequence();
+    var duration = 0.3f;
+    for (var i = 0; i < AvailableBlocks.Length; i++)
+    {
+      var block = AvailableBlocks[i];
+      var blockInstance = blockInstances[block.IndexRef];
+      Vector3[] path;
+      if (block.IndexTube == tubeData.Index)
+      {
+        path = new Vector3[4];
+        path[0] = blockInstance.position;
+        path[1] = targetPos1;
+        path[2] = targetPos2;
+        path[3] = block.Position;
+      }
+      else
+      {
+        path = new Vector3[2];
+        path[0] = blockInstance.position;
+        path[1] = block.Position;
+      }
+      Tween tween = blockInstance.DOPath(path, duration);
+      seq.Join(tween);
+    }
+  }
 }
