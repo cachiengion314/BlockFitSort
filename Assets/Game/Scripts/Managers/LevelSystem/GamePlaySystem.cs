@@ -8,7 +8,13 @@ public partial class LevelSystem
 {
     void OnTouchTube(int indexTube)
     {
-        if (indexTube == -1) return;
+        if (indexTube == -1)
+        {
+            AvailableBlocks.Clear();
+            AvailableTube.Index = -1;
+            return;
+        }
+
         if (AvailableTube.Index == indexTube) return;
         var tubeData = tubeDatas[indexTube];
         if (AvailableBlocks.Length == 0)
@@ -39,12 +45,19 @@ public partial class LevelSystem
             if (tubeData.Blocks.Length == tubeData.MaxBlock) break;
             var block = AvailableBlocks[i];
             AvailableTube.Blocks.RemoveAt(block.Index);
-
             var index = tubeData.Blocks.Length;
             block.Index = index;
             block.Position = tubeData.Positions[index];
             tubeData.Blocks.Add(block);
             AvailableBlocks[i] = block;
+
+            if (i != AvailableBlocks.Length - 1) continue;
+            if (AvailableTube.Blocks.Length == 0) continue;
+            var lastBlock = AvailableTube.Blocks[^1];
+            if (!lastBlock.IsHiden) continue;
+            lastBlock.IsHiden = false;
+            AvailableTube.Blocks[^1] = lastBlock;
+            blockSpriteRdrs[lastBlock.IndexRef].sprite = RendererSystem.Instance.GetSpriteByColorValue(lastBlock.ColorValue);
         }
         tubeDatas[AvailableTube.Index] = AvailableTube;
         tubeDatas[tubeData.Index] = tubeData;
@@ -71,8 +84,9 @@ public partial class LevelSystem
         for (int i = blockDatas.Length - 1; i >= 0; i--)
         {
             var block = blockDatas[i];
-            if (firstColorValue.Equals(block.ColorValue))
-                AvailableBlocks.Add(block);
+            if (block.IsHiden) return;
+            if (!firstColorValue.Equals(block.ColorValue)) return;
+            AvailableBlocks.Add(block);
         }
     }
 }

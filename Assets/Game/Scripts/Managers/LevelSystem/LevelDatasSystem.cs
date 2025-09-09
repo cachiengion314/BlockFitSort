@@ -10,6 +10,7 @@ public struct BlockData
   public int IndexTube;
   public float3 Position;
   public int ColorValue;
+  public bool IsHiden;
 }
 
 public struct TubeData
@@ -28,6 +29,7 @@ public partial class LevelSystem : MonoBehaviour
 
   List<Transform> tubeInstances;
   Transform[] blockInstances;
+  SpriteRenderer[] blockSpriteRdrs;
 
   int totalBlocks = 0;
   TubeData AvailableTube;
@@ -76,7 +78,8 @@ public partial class LevelSystem : MonoBehaviour
           IndexRef = totalBlocks,
           IndexTube = tubeData.Index,
           Position = tubeData.Positions[j],
-          ColorValue = _blockData.ColorValue
+          ColorValue = _blockData.ColorValue,
+          IsHiden = _blockData.IsHiden,
         };
         tubeData.Blocks.Add(blockData);
         totalBlocks++;

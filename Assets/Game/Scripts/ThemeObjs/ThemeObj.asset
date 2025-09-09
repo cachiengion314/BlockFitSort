@@ -30,3 +30,4 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 14eea3e3ac4b64c98a31cc6268aed915, type: 3}
   - {fileID: 21300000, guid: e151f7b2620894dbf86bed5c075f7bc2, type: 3}
   - {fileID: 21300000, guid: ee029a4fa769541058fda99039997bbd, type: 3}
+  spriteHiden: {fileID: 21300000, guid: 78f4acaa322fe470ca6708f8a7d3f698, type: 3}
