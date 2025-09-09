@@ -5,7 +5,7 @@ using DG.Tweening;
 
 public partial class LevelSystem : MonoBehaviour
 {
-  private static WaitForSeconds _waitForSeconds0_1 = new WaitForSeconds(0.1f);
+  private static WaitForSeconds _waitForSeconds0_1 = new(0.1f);
 
   public static LevelSystem Instance { get; private set; }
   [SerializeField] CinemachineCamera cinemachineCamera;
