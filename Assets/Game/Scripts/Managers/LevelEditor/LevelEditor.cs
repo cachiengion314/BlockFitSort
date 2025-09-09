@@ -21,6 +21,7 @@ public struct TubeDataEditor
 public struct BlockDataEditor
 {
   public int ColorValue;
+  public bool IsHiden;
 }
 
 public class LevelEditor : MonoBehaviour

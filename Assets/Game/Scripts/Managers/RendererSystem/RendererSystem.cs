@@ -38,4 +38,10 @@ public class RendererSystem : MonoBehaviour
     if (index > theme.sprites.Length - 1) return theme.sprites[^1];
     return theme.sprites[index];
   }
+
+  public Sprite GetSpriteHiden()
+  {
+    var theme = GetCurrentTheme();
+    return theme.spriteHiden;
+  }
 }

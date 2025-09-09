@@ -69,6 +69,7 @@ public partial class LevelSystem : MonoBehaviour
   {
     tubeInstances = new List<Transform>(10);
     blockInstances = new Transform[totalBlocks];
+    blockSpriteRdrs = new SpriteRenderer[totalBlocks];
     for (int i = 0; i < tubeDatas.Length; i++)
     {
       var tubeData = tubeDatas[i];
@@ -77,10 +78,16 @@ public partial class LevelSystem : MonoBehaviour
       for (int j = 0; j < tubeData.Blocks.Length; j++)
       {
         var blockData = tubeData.Blocks[j];
+
         var blockInstance = SpawnBlock(blockData.Position);
-        if (blockInstance.TryGetComponent(out ISpriteRenderer spriteRdrComp))
-          spriteRdrComp.SetColor(blockData.ColorValue);
         blockInstances[blockData.IndexRef] = blockInstance;
+
+        var spriteRdr = blockInstance.GetComponentInChildren<SpriteRenderer>();
+        blockSpriteRdrs[blockData.IndexRef] = spriteRdr;
+        if (blockData.IsHiden)
+          spriteRdr.sprite = RendererSystem.Instance.GetSpriteHiden();
+        else
+          spriteRdr.sprite = RendererSystem.Instance.GetSpriteByColorValue(blockData.ColorValue);
       }
     }
   }

@@ -6,4 +6,5 @@ public class ThemeObj : ScriptableObject
   [Header("Elements")]
   public Color[] colorValues;
   public Sprite[] sprites;
+  public Sprite spriteHiden;
 }
