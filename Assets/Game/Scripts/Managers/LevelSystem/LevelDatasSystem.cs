@@ -18,6 +18,7 @@ public struct TubeData
   public int Index;
   public float3 TubePosition;
   public int MaxBlock;
+  public bool IsActive;
   public NativeArray<float3> Positions;
   public NativeList<BlockData> Blocks;
 }
@@ -28,6 +29,7 @@ public partial class LevelSystem : MonoBehaviour
   NativeList<BlockData> AvailableBlocks;
 
   List<Transform> tubeInstances;
+  List<SpriteRenderer> tubeSpriteRdrs;
   Transform[] blockInstances;
   SpriteRenderer[] blockSpriteRdrs;
 
@@ -55,6 +57,7 @@ public partial class LevelSystem : MonoBehaviour
         Index = i,
         TubePosition = tubePositions[i],
         MaxBlock = _tubeData.MaxBlock,
+        IsActive = true,
         Positions = new NativeArray<float3>(blockSlots, Allocator.Persistent),
         Blocks = new NativeList<BlockData>(_tubeData.MaxBlock, Allocator.Persistent)
       };
