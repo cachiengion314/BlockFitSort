@@ -41,6 +41,7 @@ public partial class LevelSystem : MonoBehaviour
   void OnDestroy()
   {
     UnsubscribeTouchEvent();
+    OnDispose();
   }
 
   void Update()

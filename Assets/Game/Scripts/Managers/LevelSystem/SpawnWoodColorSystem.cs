@@ -9,12 +9,15 @@ public partial class LevelSystem
     Transform[] blockInstances;
     int totalBlocks = 0;
     NativeList<TubeData> tubeDatas;
+    NativeList<BlockData> AvailableBlocks;
+    TubeData AvailableTube;
 
     void InitEntitiesDataBuffersWoodColor(LevelInformation levelInformation)
     {
         var tubeDatas = levelInformation.TubeDatas;
         InitDataTubes(tubeDatas);
         InitDataBlocks(tubeDatas);
+        InitAvailableBlocks();
     }
 
     void InitDataTubes(TubeDataEditor[] tubeDatas)
@@ -29,6 +32,7 @@ public partial class LevelSystem
             {
                 Index = i,
                 TubePosition = tubePositions[i],
+                MaxBlock = _tubeData.MaxBlock,
                 Positions = new NativeArray<float3>(blockSlots, Allocator.Persistent),
                 Blocks = new NativeList<BlockData>(_tubeData.MaxBlock, Allocator.Persistent)
             };
@@ -48,7 +52,8 @@ public partial class LevelSystem
                 var _blockData = _tubeData.Blocks[j];
                 var blockData = new BlockData
                 {
-                    Index = totalBlocks,
+                    Index = j,
+                    IndexRef = totalBlocks,
                     Position = tubeData.Positions[j],
                     ColorValue = _blockData.ColorValue
                 };
@@ -57,6 +62,12 @@ public partial class LevelSystem
             }
             this.tubeDatas[i] = tubeData;
         }
+    }
+
+    void InitAvailableBlocks()
+    {
+        AvailableBlocks = new NativeList<BlockData>(4, Allocator.Persistent);
+        AvailableTube.Index = -1;
     }
 
     void SpawnAndBakingEntityDatasWoodColor(LevelInformation levelInformation)
@@ -74,15 +85,28 @@ public partial class LevelSystem
                 var blockInstance = SpawnBlock(blockData.Position);
                 if (blockInstance.TryGetComponent(out ISpriteRenderer spriteRdrComp))
                     spriteRdrComp.SetColor(blockData.ColorValue);
-                blockInstances[blockData.Index] = blockInstance;
+                blockInstances[blockData.IndexRef] = blockInstance;
             }
         }
+    }
+
+    void OnDispose()
+    {
+        for (int i = 0; i < tubeDatas.Length; i++)
+        {
+            var tubeData = tubeDatas[i];
+            tubeData.Blocks.Dispose();
+            tubeData.Positions.Dispose();
+        }
+        tubeDatas.Dispose();
+        AvailableBlocks.Dispose();
     }
 }
 
 public struct BlockData
 {
     public int Index;
+    public int IndexRef;
     public float3 Position;
     public int ColorValue;
 }
@@ -91,6 +115,7 @@ public struct TubeData
 {
     public int Index;
     public float3 TubePosition;
+    public int MaxBlock;
     public NativeArray<float3> Positions;
     public NativeList<BlockData> Blocks;
 }

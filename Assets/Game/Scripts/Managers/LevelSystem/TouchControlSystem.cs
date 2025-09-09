@@ -29,12 +29,11 @@ public partial class LevelSystem : MonoBehaviour
     _isUserScreenTouching = true;
 
     if (GameManager.Instance.GetGameState() != GameState.Gameplay) return;
-    Vector3 startTouchPos = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
-
-    var ray = new Ray(startTouchPos, Camera.main.transform.forward);
-    var hitCount = Physics.RaycastNonAlloc(ray, results);
-    if (hitCount == 0) return;
-  
+    var userTouchScreenPosition = Camera.main.ScreenToWorldPoint(finger.ScreenPosition);
+    Collider2D[] colliders = Physics2D.OverlapPointAll(
+      new float2(userTouchScreenPosition.x, userTouchScreenPosition.y)
+    );
+    OnTouchTube(FindTubeIndex(colliders));
   }
 
   void OnGesture(List<LeanFinger> list)
@@ -58,5 +57,19 @@ public partial class LevelSystem : MonoBehaviour
       }
     }
     return default;
+  }
+
+  public int FindTubeIndex(Collider2D[] cols)
+  {
+    for (int i = 0; i < cols.Length; ++i)
+    {
+      if (cols[i] == null) continue;
+      for (int j = 0; j < tubeInstances.Count; j++)
+      {
+        if (cols[i].transform == tubeInstances[j])
+          return j;
+      }
+    }
+    return -1;
   }
 }

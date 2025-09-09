@@ -9,17 +9,15 @@ public partial class LevelSystem : MonoBehaviour
   [SerializeField] Transform tubePref;
   [SerializeField] Transform blockPref;
 
-  Transform SpawnTube(float3 pos)
+  Transform SpawnTube(float3 localPos)
   {
-    var localPos = spawnedParent.InverseTransformPoint(pos);
     var obj = Instantiate(tubePref, spawnedParent);
     obj.localPosition = localPos;
     return obj;
   }
 
-  Transform SpawnBlock(float3 pos)
+  Transform SpawnBlock(float3 localPos)
   {
-    var localPos = spawnedParent.InverseTransformPoint(pos);
     var obj = Instantiate(blockPref, spawnedParent);
     obj.localPosition = localPos;
     return obj;
