@@ -1,13 +1,12 @@
-using Unity.Mathematics;
 using UnityEngine;
-using System.Collections.Generic;
-using TMPro;
 using Unity.Cinemachine;
 using System.Collections;
 using DG.Tweening;
 
 public partial class LevelSystem : MonoBehaviour
 {
+  private static WaitForSeconds _waitForSeconds0_1 = new WaitForSeconds(0.1f);
+
   public static LevelSystem Instance { get; private set; }
   [SerializeField] CinemachineCamera cinemachineCamera;
   LevelInformation _levelInformation;
@@ -33,10 +32,11 @@ public partial class LevelSystem : MonoBehaviour
     }
     else LoadLevelFrom(GameManager.Instance.CurrentLevelIndex + 1);
 
-    GameManager.Instance.SetGameState(GameState.Gameplay);
     SubscribeTouchEvent();
-    yield return new WaitForSeconds(0.1f);
+    yield return _waitForSeconds0_1;
+
     SetupCurrentLevel(_levelInformation);
+    GameManager.Instance.SetGameState(GameState.Gameplay);
     isLoadedLevel = true;
   }
 
@@ -62,7 +62,7 @@ public partial class LevelSystem : MonoBehaviour
 
   void BakingGrids(LevelInformation levelInformation)
   {
-    
+
   }
 
   void SpawnAndBakingEntityDatas(LevelInformation levelInformation)
@@ -82,7 +82,6 @@ public partial class LevelSystem : MonoBehaviour
 
   void SetSizeCamera()
   {
-    // var size = 27;
-    // cinemachineCamera.Lens.OrthographicSize = size;
+    cinemachineCamera.Lens.OrthographicSize = 14;
   }
 }
