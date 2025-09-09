@@ -10,7 +10,7 @@ public struct BlockData
   public int IndexTube;
   public float3 Position;
   public int ColorValue;
-  public bool IsHiden;
+  public bool IsHidden;
 }
 
 public struct TubeData
@@ -19,6 +19,8 @@ public struct TubeData
   public float3 TubePosition;
   public int MaxBlock;
   public bool IsActive;
+  public bool IsHidden;
+  public bool IsStatus;
   public NativeArray<float3> Positions;
   public NativeList<BlockData> Blocks;
 }
@@ -58,6 +60,8 @@ public partial class LevelSystem : MonoBehaviour
         TubePosition = tubePositions[i],
         MaxBlock = _tubeData.MaxBlock,
         IsActive = true,
+        IsHidden = _tubeData.IsHidden,
+        IsStatus = _tubeData.IsStatus,
         Positions = new NativeArray<float3>(blockSlots, Allocator.Persistent),
         Blocks = new NativeList<BlockData>(_tubeData.MaxBlock, Allocator.Persistent)
       };
@@ -82,7 +86,7 @@ public partial class LevelSystem : MonoBehaviour
           IndexTube = tubeData.Index,
           Position = tubeData.Positions[j],
           ColorValue = _blockData.ColorValue,
-          IsHiden = _blockData.IsHiden,
+          IsHidden = _blockData.IsHidden || tubeData.IsHidden,
         };
         tubeData.Blocks.Add(blockData);
         totalBlocks++;
@@ -107,5 +111,11 @@ public partial class LevelSystem : MonoBehaviour
     }
     tubeDatas.Dispose();
     AvailableBlocks.Dispose();
+  }
+
+  void ClearAvailableData()
+  {
+    AvailableBlocks.Clear();
+    AvailableTube.Index = -1;
   }
 }

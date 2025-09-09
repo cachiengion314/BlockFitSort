@@ -2,119 +2,139 @@
     "Index": 0,
     "TubeDatas": [
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 0,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
         },
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 0,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
         },
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 0,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 0,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
         },
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 0,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 2,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
         },
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 2,
-                    "IsHiden": false
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
         },
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 1,
-                    "IsHiden": true
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 2,
-                    "IsHiden": true
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
         },
         {
+            "IsHidden": false,
+            "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
                 {
                     "ColorValue": 0,
-                    "IsHiden": true
+                    "IsHidden": true
                 },
                 {
                     "ColorValue": 1,
-                    "IsHiden": true
+                    "IsHidden": false
                 },
                 {
                     "ColorValue": 1,
-                    "IsHiden": false
+                    "IsHidden": false
                 }
             ]
+        },
+        {
+            "IsHidden": false,
+            "IsStatus": true,
+            "MaxBlock": 4,
+            "Blocks": []
         }
     ]
 }

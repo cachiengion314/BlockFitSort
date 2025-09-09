@@ -90,7 +90,7 @@ public partial class LevelSystem : MonoBehaviour
 
         var blcokSprRdr = blockInstance.GetComponentInChildren<SpriteRenderer>();
         blockSpriteRdrs[blockData.IndexRef] = blcokSprRdr;
-        if (blockData.IsHiden)
+        if (blockData.IsHidden)
           blcokSprRdr.sprite = RendererSystem.Instance.GetSpriteHiden();
         else
           blcokSprRdr.sprite = RendererSystem.Instance.GetSpriteByColorValue(blockData.ColorValue);

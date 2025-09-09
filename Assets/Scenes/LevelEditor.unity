@@ -22987,60 +22987,78 @@ MonoBehaviour:
   levelInformation:
     Index: 0
     TubeDatas:
-    - MaxBlock: 4
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 0
-        IsHiden: 0
-    - MaxBlock: 4
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 0
-        IsHiden: 0
-    - MaxBlock: 4
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 0
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 0
-        IsHiden: 0
-    - MaxBlock: 4
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 0
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 2
-        IsHiden: 0
-    - MaxBlock: 4
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 2
-        IsHiden: 0
+        IsHidden: 0
       - ColorValue: 1
-        IsHiden: 0
-    - MaxBlock: 4
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 1
-        IsHiden: 1
+        IsHidden: 0
       - ColorValue: 2
-        IsHiden: 1
+        IsHidden: 0
       - ColorValue: 1
-        IsHiden: 0
-    - MaxBlock: 4
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 0
+      MaxBlock: 4
       Blocks:
       - ColorValue: 0
-        IsHiden: 1
+        IsHidden: 1
       - ColorValue: 1
-        IsHiden: 1
+        IsHidden: 0
       - ColorValue: 1
-        IsHiden: 0
+        IsHidden: 0
+    - IsHidden: 0
+      IsStatus: 1
+      MaxBlock: 4
+      Blocks: []
   levelSelected: 1
   gridWord: {fileID: 720745053}
 --- !u!4 &1951438157

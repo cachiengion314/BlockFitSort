@@ -13,6 +13,8 @@ public class LevelInformation
 [Serializable]
 public struct TubeDataEditor
 {
+  public bool IsHidden;
+  public bool IsStatus;
   public int MaxBlock;
   public BlockDataEditor[] Blocks;
 }
@@ -21,7 +23,7 @@ public struct TubeDataEditor
 public struct BlockDataEditor
 {
   public int ColorValue;
-  public bool IsHiden;
+  public bool IsHidden;
 }
 
 public class LevelEditor : MonoBehaviour

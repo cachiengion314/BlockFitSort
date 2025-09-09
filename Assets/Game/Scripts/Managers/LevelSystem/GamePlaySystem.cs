@@ -10,8 +10,7 @@ public partial class LevelSystem
     {
         if (indexTube == -1)
         {
-            AvailableBlocks.Clear();
-            AvailableTube.Index = -1;
+            ClearAvailableData();
             return;
         }
 
@@ -20,14 +19,20 @@ public partial class LevelSystem
 
         if (!tubeData.IsActive)
         {
-            AvailableBlocks.Clear();
-            AvailableTube.Index = -1;
+            ClearAvailableData();
             return;
         }
 
         if (AvailableBlocks.Length == 0)
         {
+            if (tubeData.IsStatus) return;
             FindFirstBlockOfTheSameColor(tubeData);
+            return;
+        }
+
+        if (AvailableTube.IsStatus)
+        {
+            ClearAvailableData();
             return;
         }
 
@@ -63,8 +68,8 @@ public partial class LevelSystem
             if (i != AvailableBlocks.Length - 1) continue;
             if (AvailableTube.Blocks.Length == 0) continue;
             var lastBlock = AvailableTube.Blocks[^1];
-            if (!lastBlock.IsHiden) continue;
-            lastBlock.IsHiden = false;
+            if (!lastBlock.IsHidden) continue;
+            lastBlock.IsHidden = false;
             AvailableTube.Blocks[^1] = lastBlock;
             blockSpriteRdrs[lastBlock.IndexRef].sprite = RendererSystem.Instance.GetSpriteByColorValue(lastBlock.ColorValue);
         }
@@ -88,8 +93,7 @@ public partial class LevelSystem
         // }
         VisualzeMoveBlocks(tubeData);
 
-        AvailableBlocks.Clear();
-        AvailableTube.Index = -1;
+        ClearAvailableData();
     }
 
     void FindFirstBlockOfTheSameColor(TubeData tubeData)
@@ -102,7 +106,7 @@ public partial class LevelSystem
         for (int i = blockDatas.Length - 1; i >= 0; i--)
         {
             var block = blockDatas[i];
-            if (block.IsHiden) return;
+            if (block.IsHidden) return;
             if (!firstColorValue.Equals(block.ColorValue)) return;
             AvailableBlocks.Add(block);
         }
@@ -116,7 +120,7 @@ public partial class LevelSystem
         for (int i = blockDatas.Length - 1; i >= 0; i--)
         {
             var block = blockDatas[i];
-            if (block.IsHiden) return false;
+            if (block.IsHidden) return false;
             if (!firstColorValue.Equals(block.ColorValue)) return false;
         }
         return true;
