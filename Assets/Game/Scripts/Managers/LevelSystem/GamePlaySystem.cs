@@ -1,9 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Unity.Collections;
-using Unity.Mathematics;
-using UnityEngine;
-
 public partial class LevelSystem
 {
     void OnTouchTube(int indexTube)

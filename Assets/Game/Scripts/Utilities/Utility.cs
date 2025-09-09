@@ -157,37 +157,46 @@ namespace HoangNam
       Debug.DrawRay(start, dir, color);
     }
 
-    public static float3x3 GetMatrixWith(float degAroundX)
+    public static float3x3 GetMatrixWith(float3 degAround)
     {
-      var o = degAroundX * math.PI / 180;
-      var c1 = new float3(1, 0, 0);
-      var c2 = new float3(0, math.cos(o), math.sin(o));
-      var c3 = new float3(0, -math.sin(o), math.cos(o));
-      return new float3x3(c1, c2, c3);
+      var degAroundX = degAround.x;
+      var degAroundY = degAround.y;
+      var degAroundZ = degAround.z;
+
+      var ɸx = degAroundX * math.PI / 180;
+      var c1x = new float3(1, 0, 0);
+      var c2x = new float3(0, math.cos(ɸx), math.sin(ɸx));
+      var c3x = new float3(0, -math.sin(ɸx), math.cos(ɸx));
+      var Mx = new float3x3(c1x, c2x, c3x);
+
+      var ɸy = degAroundY * math.PI / 180;
+      var c1y = new float3(math.cos(ɸy), 0, math.sin(ɸy));
+      var c2y = new float3(0, 1, 0);
+      var c3y = new float3(-math.sin(ɸy), 0, math.cos(ɸy));
+      var My = new float3x3(c1y, c2y, c3y);
+
+      var ɸz = degAroundZ * math.PI / 180;
+      var c1z = new float3(math.cos(ɸz), math.sin(ɸz), 0);
+      var c2z = new float3(-math.sin(ɸz), math.cos(ɸz), 0);
+      var c3z = new float3(0, 0, 1);
+      var Mz = new float3x3(c1z, c2z, c3z);
+
+      var MxMy = math.mul(Mx, My);
+      var MxMyMz = math.mul(MxMy, Mz);
+      return MxMyMz;
     }
 
     /// <summary>
     /// BurstCompile capable
     /// </summary>
-    /// <example>
-    /// ------------
-    /// This is a 3x3 matrix where (o) is the degree when we rotate coordinate around x axis with (o) value:
-    /// 1   0       0
-    /// 0   cos(o)  -sin(o)
-    /// 0   sin(o)  cos(o)
-    /// With that pre-calculated matrix we can easily calculate point A2 which is the rotated version of A1 (x, y, z)
-    /// just by multiply A1 with the matrix: x * (1, 0, 0) + y * (0, cos(o), sin(o)) + z * (0, -sin(o), cos(o)).
-    /// Which have result is: A2 (x, y * cos(o) - z * sin(o), y * sin(o) + z * cos(o))
-    /// ------------
-    /// </example>
-    public static void DrawQuad(in float3 worldPos, in float2 size, in float degAroundX = 0, in ColorIndex colorIndex = 0)
+    public static void DrawQuad(in float3 worldPos, in float2 size, in float3 degAround, in ColorIndex colorIndex = 0)
     {
       var color = GetColorFrom(colorIndex);
 
       var x = size.x / 2;
       var y = size.y / 2;
 
-      var rotatedMatrix = GetMatrixWith(degAroundX);
+      var rotatedMatrix = GetMatrixWith(degAround);
 
       var offset = worldPos;
       var pos1 = offset + math.mul(new float3(-x, -y, 0), rotatedMatrix);

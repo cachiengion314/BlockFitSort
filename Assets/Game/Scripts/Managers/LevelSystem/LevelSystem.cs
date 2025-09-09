@@ -3,6 +3,7 @@ using Unity.Cinemachine;
 using System.Collections;
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.Mathematics;
 
 public partial class LevelSystem : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public partial class LevelSystem : MonoBehaviour
 
   public static LevelSystem Instance { get; private set; }
   [SerializeField] CinemachineCamera cinemachineCamera;
+  [SerializeField] GridWorld cube2DGrid;
   LevelInformation _levelInformation;
   [SerializeField][Range(1, 30)] int levelSelected = 1;
   public bool IsSelectedLevel;
@@ -62,7 +64,9 @@ public partial class LevelSystem : MonoBehaviour
 
   void BakingGrids(LevelInformation levelInformation)
   {
-
+    cube2DGrid.GridSize = new int2(6, 6);
+    cube2DGrid.GridScale = new float2(1.4f, 1.4f);
+    cube2DGrid.InitConvertedComponents();
   }
 
   void SpawnAndBakingEntityDatas(LevelInformation levelInformation)
@@ -88,6 +92,16 @@ public partial class LevelSystem : MonoBehaviour
           spriteRdr.sprite = RendererSystem.Instance.GetSpriteHiden();
         else
           spriteRdr.sprite = RendererSystem.Instance.GetSpriteByColorValue(blockData.ColorValue);
+      }
+    }
+
+    for (int x = 0; x < cube2DGrid.GridSize.x; ++x)
+    {
+      for (int y = 0; y < cube2DGrid.GridSize.y; ++y)
+      {
+        var gridPos = new int2(x, y);
+        var pos = cube2DGrid.ConvertGridPosToWorldPos(gridPos);
+        SpawnCube2D(pos);
       }
     }
   }
