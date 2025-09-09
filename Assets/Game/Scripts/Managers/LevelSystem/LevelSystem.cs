@@ -12,8 +12,6 @@ public partial class LevelSystem : MonoBehaviour
   LevelInformation _levelInformation;
   [SerializeField][Range(1, 30)] int levelSelected = 1;
   public bool IsSelectedLevel;
-  [SerializeField] GridWorld passengerGrid;
-  public GridWorld PassengerGrid => passengerGrid;
   bool isLoadedLevel = false;
 
   IEnumerator Start()
@@ -43,6 +41,7 @@ public partial class LevelSystem : MonoBehaviour
   void OnDestroy()
   {
     UnsubscribeTouchEvent();
+    DisposeDataBuffers();
   }
 
   void Update()
@@ -67,7 +66,22 @@ public partial class LevelSystem : MonoBehaviour
 
   void SpawnAndBakingEntityDatas(LevelInformation levelInformation)
   {
-
+    tubeInstances = new List<Transform>(10);
+    blockInstances = new Transform[totalBlocks];
+    for (int i = 0; i < tubeDatas.Length; i++)
+    {
+      var tubeData = tubeDatas[i];
+      var tubeInstance = SpawnTube(tubeData.TubePosition);
+      tubeInstances.Add(tubeInstance);
+      for (int j = 0; j < tubeData.Blocks.Length; j++)
+      {
+        var blockData = tubeData.Blocks[j];
+        var blockInstance = SpawnBlock(blockData.Position);
+        if (blockInstance.TryGetComponent(out ISpriteRenderer spriteRdrComp))
+          spriteRdrComp.SetColor(blockData.ColorValue);
+        blockInstances[blockData.IndexRef] = blockInstance;
+      }
+    }
   }
 
   public void LoadLevelFrom(int level)
