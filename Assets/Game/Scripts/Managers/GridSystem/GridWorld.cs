@@ -30,21 +30,21 @@ public partial class GridWorld : MonoBehaviour
     var degAroundY = degAround.y;
     var degAroundZ = degAround.z;
 
-    var ɸx = degAroundX * math.PI / 180;
+    var phiX = degAroundX * math.PI / 180;
     var c1x = new float3(1, 0, 0);
-    var c2x = new float3(0, math.cos(ɸx), math.sin(ɸx));
-    var c3x = new float3(0, -math.sin(ɸx), math.cos(ɸx));
+    var c2x = new float3(0, math.cos(phiX), math.sin(phiX));
+    var c3x = new float3(0, -math.sin(phiX), math.cos(phiX));
     var Mx = new float3x3(c1x, c2x, c3x);
 
-    var ɸy = degAroundY * math.PI / 180;
-    var c1y = new float3(math.cos(ɸy), 0, math.sin(ɸy));
+    var phiY = degAroundY * math.PI / 180;
+    var c1y = new float3(math.cos(phiY), 0, math.sin(phiY));
     var c2y = new float3(0, 1, 0);
-    var c3y = new float3(-math.sin(ɸy), 0, math.cos(ɸy));
+    var c3y = new float3(-math.sin(phiY), 0, math.cos(phiY));
     var My = new float3x3(c1y, c2y, c3y);
 
-    var ɸz = degAroundZ * math.PI / 180;
-    var c1z = new float3(math.cos(ɸz), math.sin(ɸz), 0);
-    var c2z = new float3(-math.sin(ɸz), math.cos(ɸz), 0);
+    var phiZ = degAroundZ * math.PI / 180;
+    var c1z = new float3(math.cos(phiZ), math.sin(phiZ), 0);
+    var c2z = new float3(-math.sin(phiZ), math.cos(phiZ), 0);
     var c3z = new float3(0, 0, 1);
     var Mz = new float3x3(c1z, c2z, c3z);
 
