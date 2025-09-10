@@ -17,7 +17,7 @@ public partial class LevelSystem
         if (AvailableTube.Index == indexTube) return;
         var tubeData = tubeDatas[indexTube];
 
-        if (!tubeData.IsActive)
+        if (!tubeData.IsActive || tubeData.IsHidden)
         {
             ClearAvailableData();
             return;
@@ -30,14 +30,13 @@ public partial class LevelSystem
             return;
         }
 
-        if (AvailableTube.IsStatus)
-        {
-            ClearAvailableData();
-            return;
-        }
-
         if (tubeData.MaxBlock == tubeData.Blocks.Length)
         {
+            if (tubeData.IsStatus)
+            {
+                ClearAvailableData();
+                return;
+            }
             FindFirstBlockOfTheSameColor(tubeData);
             return;
         }
@@ -48,6 +47,11 @@ public partial class LevelSystem
             var availableColorValue = AvailableBlocks[0].ColorValue;
             if (firstColorValue != availableColorValue)
             {
+                if (tubeData.IsStatus)
+                {
+                    ClearAvailableData();
+                    return;
+                }
                 FindFirstBlockOfTheSameColor(tubeData);
                 return;
             }
@@ -79,6 +83,21 @@ public partial class LevelSystem
         if (IsTubeFillComplete(tubeData))
         {
             Debug.Log("Tube: " + tubeData.Index + " Full");
+            using var tubeNeighbers = FindNeighberAt(tubeData);
+            for (int i = 0; i < tubeNeighbers.Length; i++)
+            {
+                var neighber = tubeNeighbers[i];
+                if (!neighber.IsHidden) continue;
+                neighber.IsHidden = false;
+                for (int j = 0; j < neighber.Blocks.Length; j++)
+                {
+                    var block = neighber.Blocks[j];
+                    block.IsHidden = false;
+                    blockSpriteRdrs[block.IndexRef].sprite = RendererSystem.Instance.GetSpriteByColorValue(block.ColorValue);
+                    neighber.Blocks[j] = block;
+                }
+                tubeDatas[neighber.Index] = neighber;
+            }
 
             tubeData.IsActive = false;
             tubeDatas[tubeData.Index] = tubeData;
@@ -92,7 +111,6 @@ public partial class LevelSystem
         //     blockInstance.position = block.Position;
         // }
         VisualzeMoveBlocks(tubeData);
-
         ClearAvailableData();
     }
 

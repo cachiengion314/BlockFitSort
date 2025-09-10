@@ -22995,13 +22995,15 @@ MonoBehaviour:
         IsHidden: 0
       - ColorValue: 0
         IsHidden: 0
-    - IsHidden: 0
+    - IsHidden: 1
       IsStatus: 0
       MaxBlock: 4
       Blocks:
       - ColorValue: 1
         IsHidden: 0
       - ColorValue: 1
+        IsHidden: 1
+      - ColorValue: 0
         IsHidden: 0
       - ColorValue: 0
         IsHidden: 0

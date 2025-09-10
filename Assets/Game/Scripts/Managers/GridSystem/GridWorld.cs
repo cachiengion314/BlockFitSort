@@ -1,4 +1,5 @@
 using HoangNam;
+using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -88,6 +89,12 @@ public partial class GridWorld : MonoBehaviour
     return IsGridPosOutsideAt(gridPos);
   }
 
+  public bool IsIndexOutsideAt(int index)
+  {
+    int2 gridPos = ConvertIndexToGridPos(index);
+    return IsGridPosOutsideAt(gridPos);
+  }
+
   public bool IsGridPosOutsideAt(int2 gridPos)
   {
     if (gridPos.x > gridSize.x - 1 || gridPos.x < 0) return true;
@@ -98,6 +105,22 @@ public partial class GridWorld : MonoBehaviour
   public float3 ConvertToRotated(in float3 worldPos)
   {
     return math.mul(worldPos, _rotatedMatrix) + (float3)transform.position;
+  }
+
+  public NativeArray<int2> FindNeighberAt(int index)
+  {
+    using var directions = new NativeArray<int2>(
+      new int2[4] { new(0, 1), new(1, 0), new(0, -1), new(-1, 0) }, Allocator.Temp);
+    var neighbers = new NativeArray<int2>(directions.Length, Allocator.Temp);
+
+    var gridPos = ConvertIndexToGridPos(index);
+    for (int i = 0; i < directions.Length; i++)
+    {
+      var direction = directions[i];
+      var neighber = gridPos + direction;
+      neighbers[i] = neighber;
+    }
+    return neighbers;
   }
 
   /// <summary>

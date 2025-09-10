@@ -17,7 +17,7 @@
             ]
         },
         {
-            "IsHidden": false,
+            "IsHidden": true,
             "IsStatus": false,
             "MaxBlock": 4,
             "Blocks": [
@@ -27,6 +27,10 @@
                 },
                 {
                     "ColorValue": 1,
+                    "IsHidden": true
+                },
+                {
+                    "ColorValue": 0,
                     "IsHidden": false
                 },
                 {
