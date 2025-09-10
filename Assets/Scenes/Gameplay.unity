@@ -789,6 +789,62 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -82.8622}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &107628818
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 107628820}
+  - component: {fileID: 107628819}
+  m_Layer: 0
+  m_Name: BottomGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &107628819
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107628818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef2ba4da84aa4dffad73c8a8d329ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldDrawGrid: 0
+  colorIndex: 3
+  DegAround:
+    x: 0
+    y: 0
+    z: 0
+  GridSize:
+    x: 0
+    y: 0
+  GridScale:
+    x: 0
+    y: 0
+--- !u!4 &107628820
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107628818}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 229877049}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &118866373
 GameObject:
   m_ObjectHideFlags: 0
@@ -1941,10 +1997,11 @@ MonoBehaviour:
     type: 3}
   blockPref: {fileID: 1259759417672879936, guid: 6d041a48f2b514b81b379275ca415e6e,
     type: 3}
-  cube2DPref: {fileID: 0}
-  gridWord: {fileID: 1083012360}
-  topPositionTube: {fileID: 1716277513}
-  bottomPositionTube: {fileID: 1547380192}
+  cube2DPref: {fileID: 7766993704115237462, guid: 7fc71d04117f147e698297e8d9c6703a,
+    type: 3}
+  topGridWord: {fileID: 1083012360}
+  bottomGridWord: {fileID: 107628819}
+  slotGridWord: {fileID: 1344492459}
 --- !u!4 &229877049
 Transform:
   m_ObjectHideFlags: 0
@@ -1959,9 +2016,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1083012359}
+  - {fileID: 107628820}
+  - {fileID: 1344492460}
   - {fileID: 496407634}
-  - {fileID: 1716277513}
-  - {fileID: 1547380192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &229877050
@@ -3993,17 +4050,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldDrawGrid: 0
-  colorIndex: 3
+  colorIndex: 5
   DegAround:
     x: 0
     y: 0
-    z: 0
+    z: 45
   GridSize:
-    x: 0
-    y: 0
+    x: 6
+    y: 6
   GridScale:
-    x: 0
-    y: 0
+    x: 1
+    y: 1
 --- !u!4 &496407634
 Transform:
   m_ObjectHideFlags: 0
@@ -4013,7 +4070,7 @@ Transform:
   m_GameObject: {fileID: 496407632}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 6.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9040,7 +9097,7 @@ GameObject:
   - component: {fileID: 1083012359}
   - component: {fileID: 1083012360}
   m_Layer: 0
-  m_Name: SlotGrid
+  m_Name: TopGrid
   m_TagString: Untagged
   m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -9055,7 +9112,7 @@ Transform:
   m_GameObject: {fileID: 1083012358}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11401,6 +11458,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328813447}
   m_CullTransparentMesh: 1
+--- !u!1 &1344492458
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1344492460}
+  - component: {fileID: 1344492459}
+  m_Layer: 0
+  m_Name: SlotGrid
+  m_TagString: Untagged
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1344492459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344492458}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ef2ba4da84aa4dffad73c8a8d329ae8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shouldDrawGrid: 0
+  colorIndex: 3
+  DegAround:
+    x: 0
+    y: 0
+    z: 0
+  GridSize:
+    x: 0
+    y: 0
+  GridScale:
+    x: 0
+    y: 0
+--- !u!4 &1344492460
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344492458}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 229877049}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1356788022
 GameObject:
   m_ObjectHideFlags: 0
@@ -13091,37 +13204,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523224159}
   m_CullTransparentMesh: 1
---- !u!1 &1547380191
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1547380192}
-  m_Layer: 0
-  m_Name: BottomPositionTube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1547380192
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1547380191}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 229877049}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1552855481
 GameObject:
   m_ObjectHideFlags: 0
@@ -14575,37 +14657,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1703191098}
   m_CullTransparentMesh: 1
---- !u!1 &1716277512
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1716277513}
-  m_Layer: 0
-  m_Name: TopPositionTube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1716277513
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1716277512}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 229877049}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1726770816
 GameObject:
   m_ObjectHideFlags: 0

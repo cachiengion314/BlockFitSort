@@ -312,4 +312,20 @@ public partial class GridWorld : MonoBehaviour
 
     Gizmos.DrawLineList(points);
   }
+
+  public NativeArray<int2> FindNeighberAt(int index)
+  {
+    using var directions = new NativeArray<int2>(
+      new int2[4] { new(0, 1), new(1, 0), new(0, -1), new(-1, 0) }, Allocator.Temp);
+    var neighbers = new NativeArray<int2>(directions.Length, Allocator.Temp);
+
+    var gridPos = ConvertIndexToGridPos(index);
+    for (int i = 0; i < directions.Length; i++)
+    {
+      var direction = directions[i];
+      var neighber = gridPos + direction;
+      neighbers[i] = neighber;
+    }
+    return neighbers;
+  }
 }

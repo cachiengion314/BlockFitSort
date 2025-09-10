@@ -1,3 +1,4 @@
+using UnityEngine;
 public partial class LevelSystem
 {
     void OnTouchTube(int indexTube)
