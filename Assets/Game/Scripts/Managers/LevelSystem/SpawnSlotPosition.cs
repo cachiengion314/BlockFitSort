@@ -4,9 +4,10 @@ using UnityEngine;
 
 public partial class LevelSystem
 {
-    public GridWorld gridWord;
-    public Transform topPositionTube;
-    public Transform bottomPositionTube;
+    public GridWorld topGridWord;
+    public GridWorld bottomGridWord;
+    public GridWorld slotGridWord;
+    int maxLengthGrid = 5;
 
     public NativeList<float3> GetPositionsTube(int amountSlot)
     {
@@ -15,33 +16,31 @@ public partial class LevelSystem
         var topGridSize = int2.zero;
         var bottomGridSize = int2.zero;
 
-        if (amountSlot <= 5)
+        if (amountSlot <= maxLengthGrid)
             topGridSize = new int2(amountSlot, 1);
         else
         {
             topGridSize = new int2(5, 1);
-            bottomGridSize = new int2(amountSlot - 5, 1);
+            bottomGridSize = new int2(amountSlot - maxLengthGrid, 1);
         }
 
-        gridWord.GridSize = topGridSize;
-        gridWord.GridScale = scale;
-        gridWord.transform.position = topPositionTube.position;
-        gridWord.InitConvertedComponents();
+        topGridWord.GridSize = topGridSize;
+        topGridWord.GridScale = scale;
+        topGridWord.InitConvertedComponents();
 
         for (int i = 0; i < topGridSize.x * topGridSize.y; ++i)
         {
-            var pos = gridWord.ConvertIndexToWorldPos(i);
+            var pos = topGridWord.ConvertIndexToWorldPos(i);
             positions.Add(pos);
         }
 
-        gridWord.GridSize = bottomGridSize;
-        gridWord.GridScale = scale;
-        gridWord.transform.position = bottomPositionTube.position;
-        gridWord.InitConvertedComponents();
+        bottomGridWord.GridSize = bottomGridSize;
+        bottomGridWord.GridScale = scale;
+        bottomGridWord.InitConvertedComponents();
 
         for (int i = 0; i < bottomGridSize.x * bottomGridSize.y; ++i)
         {
-            var pos = gridWord.ConvertIndexToWorldPos(i);
+            var pos = bottomGridWord.ConvertIndexToWorldPos(i);
             positions.Add(pos);
         }
 
@@ -54,16 +53,39 @@ public partial class LevelSystem
         var scale = new int2(1, 1);
         var gridSize = new int2(1, amountSlot);
 
-        gridWord.GridSize = gridSize;
-        gridWord.GridScale = scale;
-        gridWord.transform.position = tubePosition;
-        gridWord.InitConvertedComponents();
+        slotGridWord.GridSize = gridSize;
+        slotGridWord.GridScale = scale;
+        slotGridWord.transform.position = tubePosition;
+        slotGridWord.InitConvertedComponents();
 
         for (int i = 0; i < amountSlot; ++i)
         {
-            var pos = gridWord.ConvertIndexToWorldPos(i);
+            var pos = slotGridWord.ConvertIndexToWorldPos(i);
             positions[i] = pos;
         }
         return positions;
+    }
+
+    NativeList<TubeData> FindNeighberAt(TubeData tubeData)
+    {
+        var tubeNeighbers = new NativeList<TubeData>(2, Allocator.Temp);
+        var gridWord = topGridWord;
+        var index = tubeData.Index;
+        if (tubeData.Index >= maxLengthGrid)
+        {
+            gridWord = bottomGridWord;
+            index -= maxLengthGrid;
+        }
+        var neighbers = gridWord.FindNeighberAt(index);
+        for (int i = 0; i < neighbers.Length; i++)
+        {
+            var neighber = neighbers[i];
+            if (gridWord.IsGridPosOutsideAt(neighber)) continue;
+            var neighberIdx = gridWord.ConvertGridPosToIndex(neighber);
+            if (tubeData.Index >= maxLengthGrid)
+                neighberIdx += maxLengthGrid;
+            tubeNeighbers.Add(tubeDatas[neighberIdx]);
+        }
+        return tubeNeighbers;
     }
 }

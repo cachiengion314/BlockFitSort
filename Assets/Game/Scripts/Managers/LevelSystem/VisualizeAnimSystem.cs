@@ -4,7 +4,7 @@ using Firebase.Analytics;
 using Unity.Mathematics;
 using UnityEngine;
 
-public partial class LevelSystem 
+public partial class LevelSystem
 {
   void VisualzeMoveBlocks(TubeData tubeData)
   {
@@ -38,5 +38,10 @@ public partial class LevelSystem
       Tween tween = blockInstance.DOPath(path, duration);
       seq.Join(tween);
     }
+  }
+
+  void VisualzeTrigerBlock()
+  {
+    
   }
 }

@@ -72,13 +72,19 @@ public partial class LevelSystem : MonoBehaviour
   void SpawnAndBakingEntityDatas(LevelInformation levelInformation)
   {
     tubeInstances = new List<Transform>(10);
+    tubeSpriteRdrs = new List<SpriteRenderer>(10);
+
     blockInstances = new Transform[totalBlocks];
     blockSpriteRdrs = new SpriteRenderer[totalBlocks];
+
     for (int i = 0; i < tubeDatas.Length; i++)
     {
       var tubeData = tubeDatas[i];
       var tubeInstance = SpawnTube(tubeData.TubePosition);
       tubeInstances.Add(tubeInstance);
+      var tubeSprRdr = tubeInstance.GetComponentInChildren<SpriteRenderer>();
+      tubeSpriteRdrs.Add(tubeSprRdr);
+
       for (int j = 0; j < tubeData.Blocks.Length; j++)
       {
         var blockData = tubeData.Blocks[j];
@@ -86,12 +92,12 @@ public partial class LevelSystem : MonoBehaviour
         var blockInstance = SpawnBlock(blockData.Position);
         blockInstances[blockData.IndexRef] = blockInstance;
 
-        var spriteRdr = blockInstance.GetComponentInChildren<SpriteRenderer>();
-        blockSpriteRdrs[blockData.IndexRef] = spriteRdr;
-        if (blockData.IsHiden)
-          spriteRdr.sprite = RendererSystem.Instance.GetSpriteHiden();
+        var blcokSprRdr = blockInstance.GetComponentInChildren<SpriteRenderer>();
+        blockSpriteRdrs[blockData.IndexRef] = blcokSprRdr;
+        if (blockData.IsHidden)
+          blcokSprRdr.sprite = RendererSystem.Instance.GetSpriteHiden();
         else
-          spriteRdr.sprite = RendererSystem.Instance.GetSpriteByColorValue(blockData.ColorValue);
+          blcokSprRdr.sprite = RendererSystem.Instance.GetSpriteByColorValue(blockData.ColorValue);
       }
     }
 

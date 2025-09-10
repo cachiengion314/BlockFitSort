@@ -1,4 +1,5 @@
 using HoangNam;
+using Unity.Collections;
 using Unity.Mathematics;
 using UnityEngine;
 

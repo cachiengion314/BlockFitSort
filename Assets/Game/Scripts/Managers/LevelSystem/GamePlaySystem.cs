@@ -4,21 +4,33 @@ public partial class LevelSystem
     {
         if (indexTube == -1)
         {
-            AvailableBlocks.Clear();
-            AvailableTube.Index = -1;
+            ClearAvailableData();
             return;
         }
 
         if (AvailableTube.Index == indexTube) return;
         var tubeData = tubeDatas[indexTube];
+
+        if (!tubeData.IsActive || tubeData.IsHidden)
+        {
+            ClearAvailableData();
+            return;
+        }
+
         if (AvailableBlocks.Length == 0)
         {
+            if (tubeData.IsStatus) return;
             FindFirstBlockOfTheSameColor(tubeData);
             return;
         }
 
         if (tubeData.MaxBlock == tubeData.Blocks.Length)
         {
+            if (tubeData.IsStatus)
+            {
+                ClearAvailableData();
+                return;
+            }
             FindFirstBlockOfTheSameColor(tubeData);
             return;
         }
@@ -29,6 +41,11 @@ public partial class LevelSystem
             var availableColorValue = AvailableBlocks[0].ColorValue;
             if (firstColorValue != availableColorValue)
             {
+                if (tubeData.IsStatus)
+                {
+                    ClearAvailableData();
+                    return;
+                }
                 FindFirstBlockOfTheSameColor(tubeData);
                 return;
             }
@@ -41,6 +58,7 @@ public partial class LevelSystem
             AvailableTube.Blocks.RemoveAt(block.Index);
             var index = tubeData.Blocks.Length;
             block.Index = index;
+            block.IndexTube = tubeData.Index;
             block.Position = tubeData.Positions[index];
             tubeData.Blocks.Add(block);
             AvailableBlocks[i] = block;
@@ -48,24 +66,46 @@ public partial class LevelSystem
             if (i != AvailableBlocks.Length - 1) continue;
             if (AvailableTube.Blocks.Length == 0) continue;
             var lastBlock = AvailableTube.Blocks[^1];
-            if (!lastBlock.IsHiden) continue;
-            lastBlock.IsHiden = false;
+            if (!lastBlock.IsHidden) continue;
+            lastBlock.IsHidden = false;
             AvailableTube.Blocks[^1] = lastBlock;
             blockSpriteRdrs[lastBlock.IndexRef].sprite = RendererSystem.Instance.GetSpriteByColorValue(lastBlock.ColorValue);
         }
         tubeDatas[AvailableTube.Index] = AvailableTube;
         tubeDatas[tubeData.Index] = tubeData;
 
-        for (int i = 0; i < AvailableBlocks.Length; i++)
+        if (IsTubeFillComplete(tubeData))
         {
-            var block = AvailableBlocks[i];
-            var blockInstance = blockInstances[block.IndexRef];
-            blockInstance.position = block.Position;
-        }
-        // VisualzeMoveBlocks(tubeData);
+            Debug.Log("Tube: " + tubeData.Index + " Full");
+            using var tubeNeighbers = FindNeighberAt(tubeData);
+            for (int i = 0; i < tubeNeighbers.Length; i++)
+            {
+                var neighber = tubeNeighbers[i];
+                if (!neighber.IsHidden) continue;
+                neighber.IsHidden = false;
+                for (int j = 0; j < neighber.Blocks.Length; j++)
+                {
+                    var block = neighber.Blocks[j];
+                    block.IsHidden = false;
+                    blockSpriteRdrs[block.IndexRef].sprite = RendererSystem.Instance.GetSpriteByColorValue(block.ColorValue);
+                    neighber.Blocks[j] = block;
+                }
+                tubeDatas[neighber.Index] = neighber;
+            }
 
-        AvailableBlocks.Clear();
-        AvailableTube.Index = -1;
+            tubeData.IsActive = false;
+            tubeDatas[tubeData.Index] = tubeData;
+            tubeSpriteRdrs[tubeData.Index].color = Color.gray;
+        }
+
+        // for (int i = 0; i < AvailableBlocks.Length; i++)
+        // {
+        //     var block = AvailableBlocks[i];
+        //     var blockInstance = blockInstances[block.IndexRef];
+        //     blockInstance.position = block.Position;
+        // }
+        VisualzeMoveBlocks(tubeData);
+        ClearAvailableData();
     }
 
     void FindFirstBlockOfTheSameColor(TubeData tubeData)
@@ -78,9 +118,23 @@ public partial class LevelSystem
         for (int i = blockDatas.Length - 1; i >= 0; i--)
         {
             var block = blockDatas[i];
-            if (block.IsHiden) return;
+            if (block.IsHidden) return;
             if (!firstColorValue.Equals(block.ColorValue)) return;
             AvailableBlocks.Add(block);
         }
+    }
+
+    bool IsTubeFillComplete(TubeData tubeData)
+    {
+        var blockDatas = tubeData.Blocks;
+        if (blockDatas.Length != tubeData.MaxBlock) return false;
+        var firstColorValue = blockDatas[^1].ColorValue;
+        for (int i = blockDatas.Length - 1; i >= 0; i--)
+        {
+            var block = blockDatas[i];
+            if (block.IsHidden) return false;
+            if (!firstColorValue.Equals(block.ColorValue)) return false;
+        }
+        return true;
     }
 }
